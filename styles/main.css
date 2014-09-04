@@ -1,0 +1,14 @@
+@font-face {
+  font-family: 'Entypo';
+  src: url('assets/entypo.eot'); /*noembed*/ /* IE 5-8 */ 
+  src: local('☺'),             /* IE */
+    url('assets/entypo.woff') format('woff'),    /* FF 3.6, Chrome 5, IE9 */
+    url('assets/entypo.ttf') format('truetype'), /*noembed*/ /* Opera, Safari */
+    url('assets/entypo.svg#font') format('svg'); /*noembed*/ /* iOS */
+}
+
+body {
+  font-family: 'Entypo', sans-serif;
+  font-size: 40;
+}
+
