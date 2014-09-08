@@ -1,4 +1,12 @@
 /// sequence of items with a next item method and looping options
+/*
+  notes:
+  sequence is currently limited to working on finite lists
+  it should be updated to work on functions with potentially infinite length
+
+  it would make sense to refactor the code in the future so that it works with ES6 generators
+  https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators
+*/
 
 var Sequence = function(list, sequenceType) {
   this.index = 0;
