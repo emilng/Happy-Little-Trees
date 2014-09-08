@@ -1,3 +1,5 @@
+/* global QUnit */
+
 var Sequence = require('../../../src/data/sequence.js');
 
 var sequence_test = function(){
@@ -8,7 +10,7 @@ var sequence_test = function(){
       output.push(sequence.next());
     }
     return output;
-  }
+  };
 
   QUnit.test( "Sequence", function( assert ) {
     var emptySequence = new Sequence();
@@ -36,6 +38,6 @@ var sequence_test = function(){
     assert.deepEqual( oscillateOutput, [1, 2, 3, 2, 1, 2, 3], "oscillate sequence should keep oscillating" );
 
   });
-}
+};
 
 module.exports = sequence_test;

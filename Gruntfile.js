@@ -63,7 +63,7 @@ module.exports = function (grunt) {
         src: ['src/**/*.js']
       },
       tests: {
-        src: ['tests/**/*.js']
+        src: ['tests/src/**/*.js']
       }
     },
     qunit: {
