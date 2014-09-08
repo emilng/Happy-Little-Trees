@@ -59,8 +59,11 @@ module.exports = function (grunt) {
       gruntfile: {
         src: 'gruntfile.js'
       },
-      lib_test: {
-        src: ['test/**/*.js']
+      src: {
+        src: ['src/**/*.js']
+      },
+      tests: {
+        src: ['tests/**/*.js']
       }
     },
     qunit: {

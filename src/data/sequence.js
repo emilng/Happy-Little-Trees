@@ -15,7 +15,7 @@ var Sequence = function(list, sequenceType) {
 
   this.direction = 1;
   this.setType(this.sequenceType);
-}
+};
 
 // sequence types
 Sequence.SINGLE = 0;
@@ -39,6 +39,7 @@ Sequence.prototype.setType = function(sequenceType) {
       this.next = this.nextOscillate;
       break;
     case Sequence.SINGLE:
+    /* falls through */
     default:
       this.next = this.nextSingle;
       break;
