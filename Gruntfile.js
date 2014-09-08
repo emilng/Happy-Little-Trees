@@ -24,6 +24,10 @@ module.exports = function (grunt) {
       client: {
         src: ['lib/**/*.js','src/**/*.js'],
         dest: 'dist/gat.js'
+      },
+      test: {
+        src: ['tests/src/**/*.js','src/**/*.js', '!src/gat.js'],
+        dest: 'tests/tests.js'
       }
     },
     uglify: {
@@ -60,7 +64,7 @@ module.exports = function (grunt) {
       }
     },
     qunit: {
-      files: ['test/**/*.html']
+      files: ['tests/**/*.html']
     },
     watch: {
       gruntfile: {
@@ -103,8 +107,8 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-css-url-embed');
 
   // Default task
-  grunt.registerTask('default', ['jshint', 'browserify']);
-  grunt.registerTask('production', ['jshint', 'browserify', 'uglify']);
+  grunt.registerTask('default', ['jshint', 'browserify', 'qunit']);
+  grunt.registerTask('production', ['jshint', 'browserify', 'qunit', 'uglify']);
   grunt.registerTask('css', ['cssUrlEmbed']);
 };
 
