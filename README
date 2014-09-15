@@ -1,6 +1,11 @@
 Generative Art Tool
 
-A tool to facilitate procedural drawing to procedurally laid out nodes
+computer based drawing tool that can turn what you draw into a pattern and allow you to draw with those patterns
+
+example:
+draw a shape, take it and repeat it 6 times in a circle to create a snowflake pattern
+you can automatically transform the original shape to make a limitless number of unique snowflake patterns all from one shape
+which is faster than drawing by hand and may create snowflakes you never would have imagined
 
 number data:
 single number
