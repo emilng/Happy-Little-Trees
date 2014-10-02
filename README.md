@@ -1,11 +1,17 @@
-Generative Art Tool
+Generative Art Tool (GAT)
+===================
 
-computer based drawing tool that can turn what you draw into a pattern and allow you to draw with those patterns
+GAT (working name) is a computer based drawing tool that can turn what you draw into a pattern and allow you to draw with those patterns
 
-example:
-draw a shape, take it and repeat it 6 times in a circle to create a snowflake pattern
-you can automatically transform the original shape to make a limitless number of unique snowflake patterns all from one shape
-which is faster than drawing by hand and may create snowflakes you never would have imagined
+### Use case
+1. Draw a shape onto a layer.
+
+2. Repeat and rotate the layer six times to create a snowflake pattern on a new layer.
+
+3. The shape properties from step 1 can be changed when creating copies of the snowflake layer to create an unlimited number of unique snowflakes.
+
+
+### Data Format
 
 number data:
 single number
@@ -15,27 +21,29 @@ a function returning a single number or array of numbers
 matrix data:
 same as number data but replace number with matrix
 
-node : {
-  x: number,
-  y: number,
-  rotation: number,
-  regX: number,
-  regY: number,
-  width: number,
-  height: number,
-  transform: matrix,
-  drawCommands: commands,
+```
+node: {
+  x: <number>,
+  y: <number>,
+  rotation: <number>,
+  regX: <number>,
+  regY: <number>,
+  width: <number>,
+  height: <number>,
+  transform: <matrix>,
+  drawCommands: <commands>,
   childData: {
-    x: number data,
-    y: number data,
-    rotation: number data,
-    regX: number data,
-    regY: number data,
-    width: number data,
-    height: number data,
-    transform: matrix data,
-    drawCommands: draw command data,
-    layoutCommands: layout command data
+    x: <number data>,
+    y: <number data>,
+    rotation: <number data>,
+    regX: <number data>,
+    regY: <number data>,
+    width: <number data>,
+    height: <number data>,
+    transform: <matrix data>,
+    drawCommands: <draw command data>,
+    layoutCommands: <layout command data>
   }
-  childNodes: array of nodes populated with childData
+  childNodes: <array of nodes populated with childData>
 }
+```
