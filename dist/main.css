@@ -56,6 +56,11 @@ body {
   cursor: pointer;
 }
 
+.layer-panel-layer {
+  cursor: default;
+  background-color: #999;
+}
+
 #slider-container {
   display: block;
   position: absolute;
