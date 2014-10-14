@@ -72,7 +72,7 @@ button {
 }
 
 #slider-container {
-  display: block;
+  display: none;
   position: absolute;
   width: 200px;
   height: 30px;
