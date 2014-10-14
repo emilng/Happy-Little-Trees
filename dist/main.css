@@ -76,27 +76,6 @@ body {
   cursor: default;
 }
 
-/*#slider-dragger {
-  display: block;
-  position: absolute;
-  top: 5px;
-  left: 10px;
-  width: 10px;
-  height: 20px;
-  border-radius: 10px;
-  background-color: #BBB;
-}
-
-#slider-track {
-  display: block;
-  position: absolute;
-  width: 180px;
-  height: 4px;
-  left: 10px;
-  top: 13px;
-  background-color: #FFF;
-}*/
-
 input[type=range] {
   -webkit-appearance: none;
   width: 180px;
