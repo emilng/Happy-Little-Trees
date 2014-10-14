@@ -12,9 +12,9 @@ var LayersPanel = function() {
     currentLayer = current;
     while(i--) {
       if (layers[i] === currentLayer) {
-        currentLayer.style['background-color'] = '#ddd';
+        currentLayer.style['background-color'] = '#DDD';
       } else {
-        layers[i].style['background-color'] = '#999';
+        layers[i].style['background-color'] = '#AAA';
       }
     }
   };
