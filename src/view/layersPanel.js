@@ -24,8 +24,13 @@ var LayersPanel = function() {
     thisLayer.setAttribute('class', 'layer-panel-layer');
     var layerName = 'Layer ' + layerCount++;
     thisLayer.innerHTML = layerName;
-    layersPanel.appendChild(thisLayer);
-    layers.push(thisLayer);
+    var layerIndex = layers.indexOf(currentLayer);
+    layers.splice(layerIndex, 0, thisLayer);
+    if (currentLayer) {
+      layersPanel.insertBefore(thisLayer, currentLayer);
+    } else {
+      layersPanel.appendChild(thisLayer);
+    }
     updateCurrentLayer(thisLayer);
 
     thisLayer.onclick = function() {
@@ -39,8 +44,8 @@ var LayersPanel = function() {
       layersPanel.removeChild(currentLayer);
       var layerIndex = layers.indexOf(currentLayer);
       layers.splice(layerIndex, 1);
-      var newLayerIndex = Math.max(layerIndex - 1, 0);
-      updateCurrentLayer(layers[newLayerIndex]);
+      layerIndex = Math.min(layerIndex, layers.length -1);
+      updateCurrentLayer(layers[layerIndex]);
     }
   };
   removeLayerButton.onclick = removeLayer;
