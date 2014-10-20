@@ -21,8 +21,11 @@ module.exports = function (grunt) {
       }
     },
     browserify: {
+      options: {
+        transform: [ 'reactify' ]
+      },
       client: {
-        src: ['lib/**/*.js','src/**/*.js'],
+        src: ['lib/**/*.js', 'src/**/*.jsx', 'src/**/*.js'],
         dest: 'dist/gat.js'
       },
       test: {
