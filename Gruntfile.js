@@ -29,7 +29,7 @@ module.exports = function (grunt) {
         dest: 'dist/gat.js'
       },
       test: {
-        src: ['tests/src/**/*.js','src/**/*.js', '!src/gat.js'],
+        src: ['tests/src/**/*.js', 'src/**/*.js', '!src/gat.jsx'],
         dest: 'tests/tests.js'
       }
     },
