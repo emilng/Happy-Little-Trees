@@ -56,6 +56,13 @@ button {
   /*overflow: hidden;*/
 }
 
+.panel-container {
+  border-width: 1px;
+  border-top-width: 0;
+  border-style: solid;
+  border-color: #000;
+}
+
 .layer-panel-layer {
   cursor: default;
   border-width: 1px;

@@ -22,7 +22,10 @@ var PropertiesPanel = React.createClass({
       );
     }, this);
     return (
-      <div>{sliders}</div>
+      <div>
+        <div className="section-title">Properties</div>
+        <div id="properties-panel-slider-container">{sliders}</div>
+      </div>
     );
   }
 });
