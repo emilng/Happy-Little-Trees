@@ -48,7 +48,6 @@ window.onload = function(){
   dl.y = 200;
 
   var renderstage = function() {
-    console.log('renderstage');
     renderer.render(stage);
     stage.removeChildren();
   };
@@ -62,7 +61,6 @@ window.onload = function(){
 
   var propertiesPanel = document.getElementById('properties-panel');
   var renderPropertiesPanel = function() {
-    console.log('renderPropertiesPanel');
     React.renderComponent(
       <PropertiesPanel
         source={linear}
