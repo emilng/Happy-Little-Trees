@@ -6,6 +6,7 @@ var pixi = require('../lib/pixi.dev.js');
 var DrawingLayer = require('./drawingLayer.js');
 var Linear = require('./layout/linear.js');
 var LayersPanel = require('./view/layersPanel.jsx');
+var PropertiesPanel = require('./view/propertiesPanel.jsx');
 var Layers = require('./model/layers.js');
 
 window.onload = function(){
@@ -28,37 +29,52 @@ window.onload = function(){
   var drawView = document.getElementById('draw-view');
   drawView.appendChild(renderer.view);
 
-  // // create drawing layer containing a square
-  // var layerOptions = {
-  //   update: function(x, y) {
-  //     var square = new pixi.Graphics();
-  //     square.beginFill(0x000000);
-  //     square.moveTo(0,0);
-  //     square.drawRect(0,0,10,10);
-  //     square.endFill();
-  //     stage.addChild(square);
-  //     square.x = x;
-  //     square.y = y;
-  //     return square;
-  //   }
-  // };
-  // var dl = new DrawingLayer(layerOptions);
-  // dl.x = 200;
-  // dl.y = 200;
+  // create drawing layer containing a square
+  var layerOptions = {
+    update: function(x, y) {
+      var square = new pixi.Graphics();
+      square.beginFill(0x000000);
+      square.moveTo(0,0);
+      square.drawRect(0,0,10,10);
+      square.endFill();
+      stage.addChild(square);
+      square.x = x;
+      square.y = y;
+      return square;
+    }
+  };
+  var dl = new DrawingLayer(layerOptions);
+  dl.x = 200;
+  dl.y = 200;
 
+  var renderstage = function() {
+    console.log('renderstage');
+    renderer.render(stage);
+    stage.removeChildren();
+  };
 
-  // // layout squares using linear layout
-  // var linearOptions = {
-  //   drawingLayers: [dl],
-  //   count: 200,
-  //   spacing: 6,
-  //   spacingChange: -0.04,
-  //   rotation: 20,
-  //   rotationChange: -5
-  // };
-  // var linear = new Linear(linearOptions);
-  // linear.update();
+  // layout squares using linear layout
+  var linearOptions = {
+    drawingLayers: [dl]
+  };
+  var linear = new Linear(linearOptions);
+  linear.update();
 
-  renderer.render(stage);
+  var propertiesPanel = document.getElementById('properties-panel');
+  var renderPropertiesPanel = function() {
+    console.log('renderPropertiesPanel');
+    React.renderComponent(
+      <PropertiesPanel
+        source={linear}
+        renderstage={renderstage}
+      />,
+      propertiesPanel
+    );
+    renderstage();
+  };
+  linear.callback = renderPropertiesPanel;
+
+  renderPropertiesPanel();
+
 
 };
