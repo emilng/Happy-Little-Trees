@@ -2,6 +2,7 @@ Happy Little Trees (HLT)
 ===================
 
 Happy Little Trees is a tool for creative image generation using patterns.
+
 "Happy little trees" was a term coined by Bob Ross in the "Joy of Painting" television program but I figure it also works to refer to the visual information stored in a tree data structure.
 
 ### Use case
