@@ -1,4 +1,4 @@
-// Genarative Art Tool
+// Happy Little Trees
 
 // var Stats = require('../lib/stats.js');
 var React = require('react');
@@ -58,6 +58,7 @@ window.onload = function(){
   };
   var linear = new Linear(linearOptions);
   linear.update();
+
 
   var propertiesPanel = document.getElementById('properties-panel');
   var renderPropertiesPanel = function() {

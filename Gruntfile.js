@@ -16,8 +16,8 @@ module.exports = function (grunt) {
         stripBanners: true
       },
       dist: {
-        src: ['lib/gat.js'],
-        dest: 'dist/gat.js'
+        src: ['lib/hlt.js'],
+        dest: 'dist/hlt.js'
       }
     },
     browserify: {
@@ -26,10 +26,10 @@ module.exports = function (grunt) {
       },
       client: {
         src: ['lib/**/*.js', 'src/**/*.jsx', 'src/**/*.js'],
-        dest: 'dist/gat.js'
+        dest: 'dist/hlt.js'
       },
       test: {
-        src: ['tests/src/**/*.js', 'src/**/*.js', '!src/gat.jsx'],
+        src: ['tests/src/**/*.js', 'src/**/*.js', '!src/hlt.jsx'],
         dest: 'tests/tests.js'
       }
     },
@@ -39,7 +39,7 @@ module.exports = function (grunt) {
       },
       dist: {
         src: '<%= concat.dist.dest %>',
-        dest: 'dist/gat.min.js'
+        dest: 'dist/hlt.min.js'
       }
     },
     jshint: {

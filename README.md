@@ -1,7 +1,8 @@
-Generative Art Tool (GAT)
+Happy Little Trees (HLT)
 ===================
 
-GAT (working name) is a computer based drawing tool that can turn what you draw into a pattern and allow you to draw with those patterns
+Happy Little Trees is a tool for creative image generation using patterns.
+"Happy little trees" was a term coined by Bob Ross in the "Joy of Painting" television program but I figure it also works to refer to the visual information stored in a tree data structure.
 
 ### Use case
 1. Draw a shape onto a layer.
