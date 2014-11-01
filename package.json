@@ -1,5 +1,5 @@
 {
-  "name": "Happy Little Trees",
+  "name": "happy_little_trees",
   "version": "0.0.0",
   "homepage": "",
   "author": {
@@ -17,7 +17,7 @@
     "grunt-contrib-uglify": "~0.2.7",
     "grunt-contrib-watch": "~0.5.3",
     "grunt-css-url-embed": "^1.0.0",
-    "react": "^0.11.2",
-    "reactify": "^0.14.0"
+    "react": "^0.12.0",
+    "reactify": "^0.15.2"
   }
 }
