@@ -15,7 +15,7 @@ window.onload = function(){
   var layers = new Layers();
   var layersPanel = document.getElementById('layers-panel');
   var renderLayersPanel = function() {
-    React.renderComponent(<LayersPanel layers={layers}/>, layersPanel);
+    React.render(<LayersPanel layers={layers}/>, layersPanel);
   };
   layers.update = renderLayersPanel;
   renderLayersPanel();
@@ -62,7 +62,7 @@ window.onload = function(){
 
   var propertiesPanel = document.getElementById('properties-panel');
   var renderPropertiesPanel = function() {
-    React.renderComponent(
+    React.render(
       <PropertiesPanel
         source={linear}
         renderstage={renderstage}
