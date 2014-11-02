@@ -63,7 +63,7 @@ module.exports = function (grunt) {
         src: 'gruntfile.js'
       },
       src: {
-        src: ['src/**/*.js']
+        src: ['src/**/*.jsx','src/**/*.js']
       },
       tests: {
         src: ['tests/src/**/*.js']
@@ -106,11 +106,11 @@ module.exports = function (grunt) {
   // These plugins provide necessary tasks
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-qunit');
-  grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-browserify');
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-css-url-embed');
+  grunt.loadNpmTasks('grunt-jsxhint');
 
   // Default task
   grunt.registerTask('default', ['jshint', 'browserify', 'qunit']);
