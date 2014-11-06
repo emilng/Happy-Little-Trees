@@ -59,13 +59,11 @@ window.onload = function(){
   var linear = new Linear(linearOptions);
   linear.update();
 
-
   var propertiesPanel = document.getElementById('properties-panel');
   var renderPropertiesPanel = function() {
     React.render(
       <PropertiesPanel
         model={linear}
-        renderstage={renderstage}
       />,
       propertiesPanel
     );
