@@ -1,23 +1,23 @@
 var React = require('react');
-var PanelSlider = require('./panelSlider.jsx');
+var Slider = require('./Slider.jsx');
 
 var PropertiesPanel = React.createClass({
   render: function() {
-    var properties = this.props.source.props;
+    var properties = this.props.model.props;
     var propNames = Object.getOwnPropertyNames(properties);
-    var update = this.props.source.update.bind(this.props.source);
+    var update = this.props.model.update.bind(this.props.model);
     var sliders = propNames.map(function(propName, id) {
       var propValues = properties[propName];
       return (
-        <PanelSlider
+        <Slider
           key={id}
           name={propName}
-          value={propValues[0]}
+          value={this.props.model[propName]}
           min={propValues[1]}
           max={propValues[2]}
           step={propValues[3]}
           update={update}
-          source={this.props.source}
+          model={this.props.model}
         />
       );
     }, this);

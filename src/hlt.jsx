@@ -64,7 +64,7 @@ window.onload = function(){
   var renderPropertiesPanel = function() {
     React.render(
       <PropertiesPanel
-        source={linear}
+        model={linear}
         renderstage={renderstage}
       />,
       propertiesPanel
