@@ -23,7 +23,7 @@ var PropertiesPanel = React.createClass({
     }, this);
     return (
       <div>
-        <div className="section-title">Properties</div>
+        <div className="section-title">{this.props.name}</div>
         <div id="properties-panel-slider-container">{sliders}</div>
       </div>
     );
