@@ -8,6 +8,8 @@ var Linear = require('./layout/linear.js');
 var LayersPanel = require('./view/layersPanel.jsx');
 var PropertiesPanel = require('./view/propertiesPanel.jsx');
 var Layers = require('./model/layers.js');
+var ColorPanel = require('./view/colorPanel.jsx');
+var Color = require('./model/color.js');
 
 window.onload = function(){
 
@@ -70,8 +72,21 @@ window.onload = function(){
     renderstage();
   };
   linear.callback = renderPropertiesPanel;
-
   renderPropertiesPanel();
+
+
+  var color = new Color();
+  var colorPanel = document.getElementById('color-panel');
+  var renderColorPanel = function() {
+    React.render(
+      <ColorPanel
+        model={color}
+      />,
+      colorPanel
+    );
+  };
+  color.callback = renderColorPanel;
+  renderColorPanel();
 
 
 };
