@@ -5,10 +5,9 @@
 var Color = function(options) {
   options = options || {};
   this.callback = (options.callback !== undefined) ? options.callback : function() {};
-  var rgbhex = (options.rgb !== undefined) ? parseInt(options.rgb, 16) : 0;
+  var rgbhex = (options.color !== undefined) ? parseInt(options.color, 16) : 0;
 
-  this.rgb = [rgbhex >> 16 & 255, rgbhex >> 8 & 255, rgbhex & 255];
-  this.hsl = this.rgbToHsl.apply(this, this.rgb);
+  this.setRgb(rgbhex);
 
   // value, min, max, step
   this.props = {
@@ -108,6 +107,29 @@ Color.prototype = {
     }
     return [Math.round(h * 360), Math.round(s * 100), Math.round(l * 100)];
   },
+  hslHex: function(h, s, l) {
+    var rgb = this.hslToRgb(h, s, l);
+    return this.rgbHex.apply(this, rgb);
+  },
+  rgbHex: function(r, g, b) {
+    // convert [r, g, b] array to single number
+    var rgb = (r << 16) + (g << 8) + b;
+    // pad hex number with zeros then truncate to 6 chars
+    return ('000000' + rgb.toString(16)).substr(-6, 6);
+  },
+  setRgb: function(rgbhex) {
+    this.rgb = [rgbhex >> 16 & 255, rgbhex >> 8 & 255, rgbhex & 255];
+    this.hsl = this.rgbToHsl.apply(this, this.rgb);
+    this.updateProperties();
+  },
+  updateProperties: function() {
+    this.red = this.rgb[0];
+    this.green = this.rgb[1];
+    this.blue = this.rgb[2];
+    this.hue = this.hsl[0];
+    this.saturation = this.hsl[1];
+    this.lightness = this.hsl[2];
+  },
   update: function() {
     if (this.hue !== this.hsl[0] ||
         this.saturation !== this.hsl[1] ||
@@ -119,19 +141,11 @@ Color.prototype = {
       this.rgb = [this.red, this.green, this.blue];
       this.hsl = this.rgbToHsl.apply(this, this.rgb);
     }
-    this.hue = this.hsl[0];
-    this.saturation = this.hsl[1];
-    this.lightness = this.hsl[2];
-    this.red = this.rgb[0];
-    this.green = this.rgb[1];
-    this.blue = this.rgb[2];
+    this.updateProperties();
     this.callback();
   },
   toString: function() {
-    // convert [r, g, b] array to single number
-    var rgb = (this.rgb[0] << 16) + (this.rgb[1] << 8) + this.rgb[2];
-    // pad hex number with zeros then truncate to 6 chars
-    return ('000000' + rgb.toString(16)).substr(-6, 6);
+    return this.rgbHex(this.red, this.green, this.blue);
   }
 };
 
