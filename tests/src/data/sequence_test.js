@@ -4,39 +4,34 @@ var Sequence = require('../../../src/data/sequence.js');
 
 var sequence_test = function(){
 
-  var sequenceOutput = function(sequence) {
-    var output = [];
-    for(var i = 0; i < 7; i++) {
-      output.push(sequence.next());
-    }
-    return output;
-  };
-
   QUnit.test( "Sequence", function( assert ) {
     var emptySequence = new Sequence();
-    var emptyOutput = sequenceOutput(emptySequence);
-    assert.deepEqual( emptyOutput, [0, 0, 0, 0, 0, 0, 0], "empty sequence should return all zeros" );
+    var emptyOutput = emptySequence.range(0, 6);
+    assert.deepEqual(emptyOutput, [0, 0, 0, 0, 0, 0, 0], "empty sequence should return all zeros");
 
-    var singleSequence = new Sequence([1], Sequence.LOOP);
-    var singleOutput = sequenceOutput(singleSequence);
-    assert.deepEqual( singleOutput, [1, 1, 1, 1, 1, 1, 1], "single sequence should return all ones" );
+    var valueSequence = new Sequence({source:1});
+    var valueOutput = valueSequence.range(0,6);
+    assert.deepEqual(valueOutput, [1, 1, 1, 1, 1, 1, 1], "value sequence should return all ones");
 
-    var loopOnceSequence = new Sequence([1, 2, 3], Sequence.LOOP_ONCE);
-    var loopOnceOutput = sequenceOutput(loopOnceSequence);
-    assert.deepEqual( loopOnceOutput, [1, 2, 3, 3, 3, 3, 3], "loop once sequence should only loop once" );
+    var shortLoop = new Sequence({source:[1, 2, 3]});
+    var shortLoopOutput = shortLoop.range(0,2);
+    assert.deepEqual(shortLoopOutput, [1, 2, 3], "short list sequence should work with loop");
 
-    var loopSequence = new Sequence([1, 2, 3], Sequence.LOOP);
-    var loopOutput = sequenceOutput(loopSequence);
-    assert.deepEqual( loopOutput, [1, 2, 3, 1, 2, 3, 1], "loop sequence should keep looping from beginning" );
+    var loopSequence = new Sequence({source:[1, 2, 3]});
+    var loopOutput = loopSequence.range(0, 6);
+    assert.deepEqual(loopOutput, [1, 2, 3, 1, 2, 3, 1], "loop sequence should keep looping from beginning");
 
-    var oscillateOnceSequence = new Sequence([1, 2, 3], Sequence.OSCILLATE_ONCE);
-    var oscillateOnceOutput = sequenceOutput(oscillateOnceSequence);
-    assert.deepEqual( oscillateOnceOutput, [1, 2, 3, 2, 1, 1, 1], "oscillate once sequence should oscillate once" );
+    var shortOscillate = new Sequence({source:[1, 2, 3], oscillate: true});
+    var shortOscillateOutput = shortOscillate.range(0,2);
+    assert.deepEqual(shortOscillateOutput, [1, 2, 3], "short list sequence should work with oscillate");
 
-    var oscillateSequence = new Sequence([1, 2, 3], Sequence.OSCILLATE);
-    var oscillateOutput = sequenceOutput(oscillateSequence);
-    assert.deepEqual( oscillateOutput, [1, 2, 3, 2, 1, 2, 3], "oscillate sequence should keep oscillating" );
+    var oscillateSequence = new Sequence({source:[1, 2, 3], oscillate: true});
+    var oscillateOutput = oscillateSequence.range(0, 6);
+    assert.deepEqual(oscillateOutput, [1, 2, 3, 2, 1, 2, 3], "oscillate sequence should keep oscillating");
 
+    var functionSequence = new Sequence({source:function(index) { return index; }});
+    var functionOutput = functionSequence.range(0, 6);
+    assert.deepEqual(functionOutput, [0, 1, 2, 3, 4, 5, 6], "function sequence should return continuous sequence");
   });
 };
 

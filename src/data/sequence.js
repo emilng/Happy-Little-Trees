@@ -1,105 +1,104 @@
-/// sequence of items with a next item method and looping options
+/// infinite sequence with loop/oscillate options for finite arrays
 /*
-  notes:
-  sequence is currently limited to working on finite lists
-  it should be updated to work on functions with potentially infinite length
+  defaults:
+  source - can be a number, array or function
+  sourceType - can be 'value', 'list', or 'function'
+  value - is only used when sourceType is 'value'
+  start - starting point for source list
+  end - ending point for source list
+  oscillate - looping behavior
 
-  it would make sense to refactor the code in the future so that it works with ES6 generators
-  https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators
+  notes:
+  a function is assumed to not have any range limits
+  range returns a list
+  index returns a single value
 */
 
-var Sequence = function(list, sequenceType) {
-  this.index = 0;
-  this.value = 0;
-  this.sequenceType = Sequence.SINGLE;
-  if (list !== undefined) {
-    if (list.length > 1) {
-      this.list = list;
-      this.sequenceType = (sequenceType !== undefined) ? sequenceType : Sequence.LOOP_ONCE;
-    } else {
-      this.value = list[0];
+var Sequence = function(options) {
+  this.init(options);
+};
+
+Sequence.prototype = {
+  init: function(options) {
+    options = options || {};
+    var defaults = {
+      source: 0,
+      sourceType: 'value',
+      value: 0,
+      start: 0,
+      end: Infinity,
+      oscillate: false
+    };
+    for (var prop in defaults) {
+      this[prop] = (options[prop] !== undefined) ? options[prop] : defaults[prop];
     }
+
+    if (Array.isArray(this.source) && (this.source.length > 0)) {
+      this.sourceType = 'list';
+    } else if (typeof this.source === 'function') {
+      this.sourceType = 'function';
+    } else if (typeof this.source !== 'number') {
+      this.source = 0;
+    }
+  },
+  index: function(index) {
+    return this.range(index)[0];
+  },
+  range: function(rangeStart, rangeEnd) {
+    rangeStart = rangeStart || 0;
+    rangeEnd = rangeEnd || rangeStart;
+    var rangeList = [];
+    switch (this.sourceType) {
+      case 'list':
+        return this.rangeList(rangeStart, rangeEnd, rangeList);
+      case 'function':
+        return this.rangeFunction(rangeStart, rangeEnd, rangeList);
+      default:
+        return this.rangeValue(rangeStart, rangeEnd, rangeList);
+    }
+  },
+  rangeList: function(rangeStart, rangeEnd, rangeList) {
+    var start = Math.min(this.start, this.source.length);
+    var end = Math.min(this.end, this.source.length);
+    // use slice when range shorter than list length
+    if (rangeEnd < this.source.length + 1) {
+      return this.source.slice(rangeStart, rangeEnd + 1);
+    }
+    var length = end - start;
+    if (this.oscillate) {
+      return this.rangeListOscillate(rangeStart, rangeEnd, rangeList, length, start);
+    } else {
+      return this.rangeListLoop(rangeStart, rangeEnd, rangeList, length);
+    }
+  },
+  rangeListOscillate: function(rangeStart, rangeEnd, rangeList, length, start) {
+    var l = length - 1;
+    var l2 = l * 2;
+    for (var i = rangeStart; i <= rangeEnd; i++) {
+      var index = Math.abs((i+l)%l2-l)+start;
+      rangeList.push(this.source[index]);
+    }
+    return rangeList;
+  },
+  rangeListLoop: function(rangeStart, rangeEnd, rangeList, length) {
+    for (var i = rangeStart; i <= rangeEnd; i++) {
+      var index = i % length;
+      rangeList.push(this.source[index]);
+    }
+    return rangeList;
+  },
+  rangeValue: function(rangeStart, rangeEnd, rangeList) {
+    for (var i = rangeStart; i <= rangeEnd; i++) {
+      rangeList.push(this.source);
+    }
+    return rangeList;
+  },
+  rangeFunction: function(rangeStart, rangeEnd, rangeList) {
+    for (var i = rangeStart; i <= rangeEnd; i++) {
+      rangeList.push(this.source(i));
+    }
+    return rangeList;
   }
-
-  this.direction = 1;
-  this.setType(this.sequenceType);
-};
-
-// sequence types
-Sequence.SINGLE = 0;
-Sequence.LOOP_ONCE = 1;
-Sequence.LOOP = 2;
-Sequence.OSCILLATE_ONCE = 3;
-Sequence.OSCILLATE = 4;
-
-Sequence.prototype.setType = function(sequenceType) {
-  switch(sequenceType) {
-    case Sequence.LOOP_ONCE:
-      this.next = this.nextLoopOnce;
-      break;
-    case Sequence.LOOP:
-      this.next = this.nextLoop;
-      break;
-    case Sequence.OSCILLATE_ONCE:
-      this.next = this.nextOscillateOnce;
-      break;
-    case Sequence.OSCILLATE:
-      this.next = this.nextOscillate;
-      break;
-    case Sequence.SINGLE:
-    /* falls through */
-    default:
-      this.next = this.nextSingle;
-      break;
-  }
-};
-
-Sequence.prototype.nextSingle = function() {
-  return this.value;
-};
-
-Sequence.prototype.nextLoopOnce = function() {
-  var currentIndex = this.index;
-  if (currentIndex < this.list.length - 1) {
-    this.index++;
-  } else {
-    this.index = this.list.length - 1;
-  }
-  return this.list[currentIndex];
-};
-
-Sequence.prototype.nextLoop = function() {
-  var currentIndex = this.index;
-  if (currentIndex < this.list.length - 1) {
-    this.index++;
-  } else {
-    this.index = 0;
-  }
-  return this.list[currentIndex];
-};
-
-Sequence.prototype.nextOscillateOnce = function() {
-  var currentIndex = this.index;
-  this.index += this.direction;
-  if (this.index === this.list.length) {
-    this.index = this.list.length - 2;
-    this.direction = -1;
-  } else if (this.index === 0) {
-    this.direction = 0;
-  }
-  return this.list[currentIndex];
-};
-
-Sequence.prototype.nextOscillate = function() {
-  var currentIndex = this.index;
-  this.index += this.direction;
-  if (this.index === this.list.length) {
-    this.index = this.list.length - 2;
-    this.direction = -1;
-  } else if (this.index === 0) {
-    this.direction = 1;
-  }
-  return this.list[currentIndex];
 };
 
 module.exports = Sequence;
